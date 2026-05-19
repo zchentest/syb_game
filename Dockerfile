@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE 5000
+RUN mkdir -p web_ui/saves/rooms
+
+ENV PORT=7860
+
+EXPOSE 7860
 
 CMD ["python", "web_ui/server.py"]

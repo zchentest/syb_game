@@ -4,6 +4,8 @@ import sys
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
 
+PORT = int(os.environ.get("PORT", 5000))
+
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from web_ui.game_room import create_room, get_room, save_room, load_all_rooms, get_player_games, get_room_summary
 from syb_game import config
@@ -396,7 +398,7 @@ class SYBHandler(BaseHTTPRequestHandler):
         pass
 
 
-def run_server(port=5000):
+def run_server(port=PORT):
     loaded = load_all_rooms()
     server = HTTPServer(("0.0.0.0", port), SYBHandler)
     print(f"╔══════════════════════════════════════════════════════╗")
