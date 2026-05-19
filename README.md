@@ -1,3 +1,12 @@
+---
+title: SYB 沙盘模拟 · 课堂教学版
+emoji: 🎲
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+pinned: false
+---
+
 # SYB 沙盘模拟 · 课堂教学版
 
 > **零依赖 · 浏览器即开即用 · 专为创业培训课堂设计**
