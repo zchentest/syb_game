@@ -1,0 +1,127 @@
+{
+  "room_code": "CWCZ",
+  "day": 0,
+  "phase": "playing",
+  "teacher_id": "3qdg8i1j",
+  "created_at": 1779160899.5704234,
+  "last_event": "游戏开始！",
+  "players": {
+    "3qdg8i1j": {
+      "player_id": "3qdg8i1j",
+      "name": "王老师",
+      "is_teacher": true,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    },
+    "v2k5e6pv": {
+      "player_id": "v2k5e6pv",
+      "name": "zc",
+      "is_teacher": false,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    },
+    "qh9zbikj": {
+      "player_id": "qh9zbikj",
+      "name": "22",
+      "is_teacher": false,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    },
+    "c24g3wou": {
+      "player_id": "c24g3wou",
+      "name": "22",
+      "is_teacher": false,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    },
+    "ghb5cgvm": {
+      "player_id": "ghb5cgvm",
+      "name": "33",
+      "is_teacher": false,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    }
+  },
+  "pending_requests": [],
+  "scenario_log": [],
+  "market": {
+    "material_prices": {
+      "RC": 19.99
+    },
+    "retailer_product_prices": {
+      "CP": {
+        "RT1": 47.53,
+        "RT2": 34.77,
+        "RT3": 24.35
+      }
+    },
+    "demand_trends": {
+      "CP": 1
+    }
+  }
+}

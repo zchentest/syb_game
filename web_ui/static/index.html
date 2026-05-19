@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SYB沙盘模拟游戏课堂教学版 - 专为创业培训设计的互动教学工具。支持教师控制进度、学生分组经营、周周期管理、诚信商店、情景卡等完整教学功能。">
+<meta name="keywords" content="SYB,沙盘模拟,创业培训,课堂教学,教学工具,商业模拟,A4纸帽子,诚信商店">
+<meta name="author" content="SYB Game">
+<meta name="application-name" content="SYB沙盘模拟">
+<meta property="og:title" content="SYB沙盘模拟 - 课堂教学版">
+<meta property="og:description" content="专为创业培训设计的互动沙盘模拟教学工具，支持教师/学生双角色、周周期经营、产品分级、诚信商店等完整功能。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta name="robots" content="index, follow">
+<title>SYB 沙盘模拟 · 课堂教学</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0a0e17;color:#e0e0e0;min-height:100vh}
+
+/* Login */
+.login-screen{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.login-card{background:linear-gradient(145deg,#141d2b,#1a2a3a);border:1px solid #2a4a6a;border-radius:16px;padding:40px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-card h1{font-size:28px;text-align:center;margin-bottom:4px;background:linear-gradient(90deg,#4fc3f7,#81d4fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.login-card .subtitle{text-align:center;color:#8899aa;font-size:13px;margin-bottom:28px}
+.login-card label{display:block;font-size:13px;color:#8899aa;margin-bottom:4px;margin-top:16px}
+.login-card input,.login-card select{width:100%;padding:10px 14px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#e0e0e0;font-size:15px;outline:none}
+.login-card input:focus{border-color:#4fc3f7}
+.login-card .btn-row{display:flex;gap:10px;margin-top:20px}
+.login-card .btn-row button{flex:1;padding:11px;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer}
+.btn-primary{background:#4fc3f7;color:#0a0e17}.btn-primary:hover{background:#29b6f6}
+.btn-secondary{background:rgba(255,255,255,.08);color:#b0bec5}.btn-secondary:hover{background:rgba(255,255,255,.15)}
+.divider{text-align:center;color:#556677;font-size:12px;margin:12px 0;position:relative}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:rgba(255,255,255,.08)}
+.divider::before{left:0}.divider::after{right:0}
+.role-tabs{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.role-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:14px;font-weight:600;background:rgba(255,255,255,.03);color:#8899aa;transition:all .2s}
+.role-tab.active{background:#4fc3f7;color:#0a0e17}
+.role-tab:hover:not(.active){background:rgba(79,195,247,.1);color:#e0e0e0}
+
+/* Game Screen */
+.game-screen{display:none;padding:12px}
+.game-screen.show{display:block}
+.top-bar{background:linear-gradient(135deg,#141d2b,#1a2a3a);border:1px solid #2a4a6a;border-radius:12px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.room-code{font-size:22px;font-weight:800;color:#ffd54f;letter-spacing:3px}
+.phase-badge{font-size:12px;padding:3px 10px;border-radius:20px;font-weight:600}
+.phase-lobby{background:rgba(255,152,0,.2);color:#ffb74d;border:1px solid #ffb74d}
+.phase-playing{background:rgba(76,175,80,.2);color:#81c784;border:1px solid #81c784}
+.phase-ended{background:rgba(244,67,54,.2);color:#ef9a9a;border:1px solid #ef9a9a}
+.progress-bar-wrap{background:rgba(0,0,0,.3);border-radius:20px;height:8px;width:180px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#4fc3f7,#66bb6a);border-radius:20px;transition:width .5s}
+.game-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start}
+@media(max-width:900px){.game-grid{grid-template-columns:1fr}}
+.panel{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px;margin-bottom:10px}
+.panel-title{font-size:12px;color:#8899aa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;font-weight:600}
+
+/* Student cards */
+.student-card{text-align:center;padding:12px}
+.student-card .sname{font-size:16px;font-weight:700;color:#4fc3f7}
+.student-card .scash{font-size:24px;font-weight:800;color:#ffd54f;margin:4px 0}
+.student-card .sstats{display:flex;justify-content:center;gap:14px;margin-top:6px;font-size:12px;flex-wrap:wrap}
+.student-card .sstats .val{font-weight:600;color:#e0e0e0}
+.student-card .sstats .vred{color:#ef5350}
+.student-card .sstats .vgreen{color:#66bb6a}
+.schedule-banner{text-align:center;padding:8px;background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.2);border-radius:8px;margin-bottom:10px}
+.schedule-banner .day-name{font-size:18px;font-weight:700;color:#4fc3f7}
+.schedule-banner .day-action{font-size:13px;color:#b0bec5;margin-top:2px}
+
+/* Action grid */
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.action-btn{padding:7px 10px;border:1px solid rgba(255,255,255,.08);border-radius:6px;background:rgba(255,255,255,.03);color:#e0e0e0;cursor:pointer;font-size:12px;transition:all .15s}
+.action-btn:hover{background:rgba(79,195,247,.12);border-color:#4fc3f7}
+.action-btn.teacher-btn{border-color:#ffd54f;color:#ffd54f}
+.action-btn.teacher-btn:hover{background:rgba(255,213,79,.12)}
+.action-btn.disabled{opacity:.4;cursor:not-allowed}
+.action-btn.danger{border-color:rgba(239,83,80,.3);color:#ef5350}
+.action-btn.danger:hover{background:rgba(239,83,80,.12)}
+
+/* Leaderboard */
+.lb-item{display:flex;align-items:center;padding:5px 8px;margin-bottom:2px;border-radius:6px;background:rgba(255,255,255,.02);gap:6px;font-size:12px}
+.lb-item .rk{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.rk1{background:#ffd54f;color:#0a0e17}.rk2{background:#b0bec5;color:#0a0e17}.rk3{background:#a1887f;color:#0a0e17}
+.lb-item .lbn{flex:1;font-weight:500}
+.lb-item .lbc{font-weight:700;color:#ffd54f}
+.lb-item.me{border:1px solid rgba(79,195,247,.3)}
+
+/* Event log */
+.ev-log{max-height:200px;overflow-y:auto;font-size:11px;line-height:1.7}
+.ev-log .ev{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.ev-log .ev-d{color:#4fc3f7;font-weight:600;margin-right:4px}
+.ev-amt{font-weight:600}
+.ev-amt.pos{color:#66bb6a}
+.ev-amt.neg{color:#ef5350}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:#1a2a3a;border:1px solid #2a4a6a;border-radius:12px;padding:24px;min-width:300px;max-width:440px;width:90%;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:16px;margin-bottom:12px;color:#4fc3f7}
+.modal label{display:block;font-size:13px;color:#8899aa;margin-bottom:3px;margin-top:10px}
+.modal input,.modal select{width:100%;padding:8px 12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#e0e0e0;font-size:14px;outline:none}
+.modal input:focus,.modal select:focus{border-color:#4fc3f7}
+.modal .btn-row{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+.modal .btn-row button{padding:8px 18px;border-radius:6px;border:none;cursor:pointer;font-size:14px;font-weight:500}
+.btn-cancel{background:rgba(255,255,255,.08);color:#b0bec5}
+.btn-confirm{background:#4fc3f7;color:#0a0e17;font-weight:600}
+.toast{position:fixed;top:20px;right:20px;padding:10px 16px;border-radius:8px;font-size:13px;z-index:2000;animation:slideIn .25s;max-width:380px}
+.toast.ok{background:#1b5e20;border:1px solid #66bb6a;color:#c8e6c9}
+.toast.err{background:#b71c1c;border:1px solid #ef5350;color:#ffcdd2}
+.toast.info{background:#0d47a1;border:1px solid #42a5f5;color:#bbdefb}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+.pchip{display:inline-block;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:11px;margin:2px}
+.pchip.teacher{border-color:#ffd54f;color:#ffd54f}
+.hidden{display:none!important}
+.req-item{padding:6px 8px;margin-bottom:4px;border-radius:6px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px}
+.req-item .req-actions{display:flex;gap:4px}
+.req-item .req-actions button{padding:3px 8px;border-radius:4px;border:none;cursor:pointer;font-size:11px}
+.grade-badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;margin-left:4px}
+.market-info{font-size:12px;line-height:1.8}
+.market-info .mi-row{display:flex;justify-content:space-between;padding:2px 0}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.shop-item{padding:8px;border:1px solid rgba(255,255,255,.08);border-radius:6px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
+.shop-item:hover{background:rgba(79,195,247,.1);border-color:#4fc3f7}
+.shop-item .si-emoji{font-size:24px}
+.shop-item .si-name{font-size:13px;margin:2px 0}
+.shop-item .si-price{font-size:12px;color:#ffd54f;font-weight:600}
+.scenario-item{padding:6px 8px;margin-bottom:4px;border-radius:6px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px}
+.scenario-item .sc-type{font-size:10px;padding:1px 5px;border-radius:4px}
+.sc-type.reward{background:rgba(102,187,106,.2);color:#66bb6a}
+.sc-type.penalty{background:rgba(239,83,80,.2);color:#ef5350}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h1>🏭 SYB 沙盘模拟</h1>
+    <div class="subtitle">课堂教学 · 周周期经营 · A4纸做帽子</div>
+    <div class="role-tabs">
+      <div class="role-tab active" onclick="setRole('teacher',this)">👨‍🏫 老师</div>
+      <div class="role-tab" onclick="setRole('student',this)">🧑‍🎓 学生</div>
+    </div>
+    <label>名称</label>
+    <input id="playerName" placeholder="输入名称..." value="" maxlength="10">
+    <div id="teacherSection">
+      <div class="btn-row"><button class="btn-primary" onclick="createRoom()">🏠 创建教室</button></div>
+    </div>
+    <div id="studentSection" class="hidden">
+      <label>教室号</label>
+      <input id="roomCodeInput" placeholder="输入4位教室号..." maxlength="4" style="text-transform:uppercase;letter-spacing:4px;font-weight:700">
+      <div class="btn-row"><button class="btn-primary" onclick="joinRoom()">🔗 加入教室</button></div>
+    </div>
+    <div style="margin-top:16px;text-align:center">
+      <button class="btn-secondary" onclick="showHistory()" style="padding:6px 16px;border:none;border-radius:6px;cursor:pointer;font-size:12px">📋 我的游戏记录</button>
+    </div>
+    <div id="historySection" class="hidden" style="margin-top:12px;max-height:200px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<!-- Game -->
+<div class="game-screen" id="gameScreen">
+  <div class="top-bar">
+    <div><span class="room-code" id="roomCodeDisplay">——</span> <span class="phase-badge phase-lobby" id="phaseBadge">等待中</span></div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span id="roleBadge" style="font-size:12px;padding:2px 8px;border-radius:4px;font-weight:600"></span>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dayProgress" style="width:0%"></div></div>
+      <span style="font-size:12px;color:#8899aa" id="dayDisplay">第 0 / 31 天</span>
+      <button class="action-btn" onclick="backToLobby()" style="font-size:11px;padding:3px 8px">🚪 返回</button>
+    </div>
+  </div>
+
+  <div id="teacherView">
+    <div class="game-grid">
+      <div>
+        <div class="panel">
+          <div class="panel-title">👨‍🏫 教师控制台</div>
+          <div id="teacherSchedule" style="font-size:12px;color:#4fc3f7;margin-bottom:8px;padding:4px 8px;background:rgba(79,195,247,.06);border-radius:6px;text-align:center"></div>
+          <div class="action-grid">
+            <button class="action-btn teacher-btn" onclick="startGame()">🚀 开始游戏</button>
+            <button class="action-btn teacher-btn" onclick="nextDay()">⏭ 推进一天</button>
+          </div>
+          <div style="margin-top:8px">
+            <div class="panel-title">📥 待审批请求 <span id="pendingCount" style="color:#ffd54f">0</span></div>
+            <div id="pendingRequests"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🔍 检验帽子</div>
+          <div id="pendingGrading"></div>
+          <div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap">
+            <input id="gradeQty" type="number" min="1" value="1" style="width:60px;padding:4px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.12);border-radius:4px;color:#e0e0e0;font-size:12px">
+            <span style="font-size:11px;color:#8899aa;line-height:28px">顶/次</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🏪 诚信商店（商品参考）</div>
+          <div id="teacherShop" style="font-size:11px"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🃏 发放情景卡</div>
+          <div id="scenarioCards"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">💰 收/发金币</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <button class="action-btn teacher-btn" onclick="showCollect()">📥 收取</button>
+            <button class="action-btn teacher-btn" onclick="showGive()">📤 发放</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title">🏪 市场信息</div>
+          <div class="market-info" id="teacherMarket"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">📋 事件日志</div>
+          <div class="ev-log" id="teacherLog"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">📜 情景卡记录</div>
+          <div id="scenarioLog" style="font-size:11px;max-height:150px;overflow-y:auto"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title">🏅 排行榜</div>
+          <div id="teacherLeaderboard"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">👥 学生列表</div>
+          <div id="studentList" style="font-size:12px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="studentView" class="hidden">
+    <div class="game-grid">
+      <div>
+        <div class="panel student-card">
+          <div class="sname" id="myName">—</div>
+          <div class="scash" id="myCash">0</div>
+          <div style="font-size:11px;color:#8899aa">当前现金</div>
+          <div class="sstats">
+            <span>A4纸 <span class="val" id="myRaw">0</span></span>
+            <span>帽子 <span class="val" id="myProd">0</span></span>
+            <span>待检验 <span class="val vgreen" id="myPending">0</span></span>
+            <span>负债 <span class="val vred" id="myDebt">0</span></span>
+            <span>声望 <span class="val" id="myRep">0</span></span>
+          </div>
+          <div style="margin-top:6px;font-size:11px" id="gradeBadges"></div>
+        </div>
+        <div class="schedule-banner" id="scheduleBanner">
+          <div class="day-name" id="weekdayName">—</div>
+          <div class="day-action" id="dayAction">—</div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">🎮 经营操作</div>
+          <div class="action-grid" id="studentActions"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">📋 我的请求</div>
+          <div id="myRequests"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title">🏪 市场信息</div>
+          <div class="market-info" id="studentMarket"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">📋 经营日志</div>
+          <div class="ev-log" id="studentLog"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel">
+          <div class="panel-title">🏅 排行榜</div>
+          <div id="studentLeaderboard"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+let roomCode='', playerId='', isTeacher=false, pollTimer=null, selectedRole='teacher';
+const STORAGE_KEY='syb_player';
+
+function toast(msg,t='info'){const e=document.createElement('div');e.className='toast '+t;e.textContent=msg;document.body.appendChild(e);setTimeout(()=>e.remove(),3000)}
+function hideModal(){document.getElementById('modalOverlay').classList.remove('show')}
+document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)hideModal()})
+
+function setRole(role,el){
+  selectedRole=role;
+  document.querySelectorAll('.role-tab').forEach(t=>t.classList.toggle('active',t===el));
+  document.getElementById('teacherSection').classList.toggle('hidden',role!=='teacher');
+  document.getElementById('studentSection').classList.toggle('hidden',role!=='student');
+  document.getElementById('playerName').placeholder=role==='teacher'?'输入教师名称...':'输入学生姓名...';
+  document.getElementById('playerName').value='';
+}
+
+// Auto-reconnect on page load
+(function tryReconnect(){
+  const saved=sessionStorage.getItem(STORAGE_KEY);
+  if(!saved) return;
+  try {
+    const creds=JSON.parse(saved);
+    if(!creds.room_code||!creds.player_id) return;
+    (async()=>{
+      const r=await api('/api/reconnect',{room_code:creds.room_code,player_id:creds.player_id});
+      if(r.success){
+        roomCode=r.data.room_code;playerId=r.data.player_id;isTeacher=r.data.is_teacher;
+        enterGame(r.data.room);
+      }
+    })();
+  }catch(e){sessionStorage.removeItem(STORAGE_KEY)}
+})();
+
+async function api(path,body={}){
+  try{const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});return await r.json()}
+  catch(e){toast('网络错误','err');return{success:false,message:'网络错误'}}
+}
+
+async function createRoom(){
+  const name=document.getElementById('playerName').value.trim()||'老师';
+  const r=await api('/api/create_room',{name});
+  if(r.success){
+    roomCode=r.data.room_code;playerId=r.data.player_id;isTeacher=r.data.is_teacher;
+    sessionStorage.setItem(STORAGE_KEY,JSON.stringify({room_code:roomCode,player_id:playerId,name:name}));
+    enterGame(r.data.room)
+  }
+  else toast(r.message,'err')
+}
+
+async function joinRoom(){
+  const name=document.getElementById('playerName').value.trim()||'学生';
+  const code=document.getElementById('roomCodeInput').value.trim().toUpperCase();
+  if(!code){toast('请输入教室号','err');return}
+  const r=await api('/api/join_room',{room_code:code,name});
+  if(r.success){
+    roomCode=r.data.room_code;playerId=r.data.player_id;isTeacher=r.data.is_teacher;
+    sessionStorage.setItem(STORAGE_KEY,JSON.stringify({room_code:roomCode,player_id:playerId,name:name}));
+    enterGame(r.data.room)
+  }
+  else toast(r.message,'err')
+}
+
+function enterGame(data){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('gameScreen').classList.add('show');
+  document.getElementById('teacherView').style.display=isTeacher?'block':'none';
+  document.getElementById('studentView').classList.toggle('hidden',isTeacher);
+  const badge=document.getElementById('roleBadge');
+  badge.textContent=isTeacher?'👨‍🏫 教师模式':'🧑‍🎓 学生模式';
+  badge.style.background=isTeacher?'rgba(255,213,79,.15)':'rgba(79,195,247,.15)';
+  badge.style.color=isTeacher?'#ffd54f':'#4fc3f7';
+  render(data);
+  if(pollTimer)clearInterval(pollTimer);
+  pollTimer=setInterval(poll,2000);
+}
+
+async function poll(){
+  if(!roomCode||!playerId)return;
+  const r=await api('/api/room_state',{room_code:roomCode,player_id:playerId});
+  if(r.success)render(r.data);
+}
+
+function render(data){
+  document.getElementById('roomCodeDisplay').textContent=data.room_code;
+  const pb=document.getElementById('phaseBadge');
+  pb.textContent=data.phase==='lobby'?'等待中':data.phase==='playing'?'游戏中':'已结束';
+  pb.className='phase-badge phase-'+data.phase;
+  const pct=data.max_days>0?Math.min(100,data.day/data.max_days*100):0;
+  document.getElementById('dayProgress').style.width=pct+'%';
+  document.getElementById('dayDisplay').textContent=`第 ${data.day} / ${data.max_days} 天`;
+
+  if(isTeacher)renderTeacher(data);
+  else renderStudent(data);
+}
+
+function renderLeaderboard(players,myPid,elId){
+  const el=document.getElementById(elId);
+  if(!players||!players.length){el.innerHTML='<div style="color:#556677;font-size:12px;padding:4px">暂无学生</div>';return}
+  el.innerHTML=players.map((p,i)=>{
+    const rc=i===0?'rk1':i===1?'rk2':i===2?'rk3':'';
+    const ri=i===0?'👑':i===1?'🥈':i===2?'🥉':(i+1);
+    const me=p.player_id===myPid;
+    const nw=p.net_worth||p.cash-p.liabilities;
+    return `<div class="lb-item${me?' me':''}"><div class="rk ${rc}">${ri}</div><div class="lbn">${p.name}${me?' <span style="color:#4fc3f7;font-size:10px">你</span>':''}</div><div class="lbc">${p.cash.toFixed(0)}💰 <span style="font-size:10px;color:#8899aa">净${nw.toFixed(0)}</span></div></div>`;
+  }).join('');
+}
+
+function renderMarket(market,elId){
+  const el=document.getElementById(elId);
+  if(!market){el.innerHTML='<div style="color:#556677">加载中...</div>';return}
+  let h='<div style="margin-bottom:6px"><strong>🪨 A4纸</strong>';
+  market.materials.forEach(m=>{h+=`<div class="mi-row"><span>${m.name}</span><span style="font-weight:600;color:#ffd54f">${m.price.toFixed(2)}💰</span></div>`});
+  h+='</div>';
+  market.retailers.forEach(r=>{
+    h+=`<div style="margin-bottom:4px"><strong>🏪 ${r.name}</strong> <span style="font-size:10px;color:#8899aa">${r.description}</span>`;
+    r.products.forEach(p=>{
+      h+=`<div class="mi-row"><span>${p.name}</span><span style="font-weight:600;color:#66bb6a">${p.price.toFixed(2)}💰</span></div>`;
+      h+=`<div style="font-size:10px;color:#8899aa;margin-bottom:2px">↳ ${p.trend}</div>`;
+    });
+    h+='</div>';
+  });
+  el.innerHTML=h;
+}
+
+// === TEACHER VIEW ===
+function renderSellDetail(r){
+  const gp=r.graded_products||{A:0,B:0,C:0,D:0};
+  const gpStr=Object.entries(gp).filter(([,c])=>c>0).map(([g,c])=>`<span style="font-size:10px;padding:0 3px;background:rgba(255,255,255,.08);border-radius:3px">${g}:${c}</span>`).join('')||'<span style="color:#8899aa">无</span>';
+  const prices=r.grade_prices||{};
+  const priceStr=Object.entries(prices).map(([g,p])=>`<span style="font-size:10px;color:#ffd54f;padding:0 3px">${g}:${p}💰</span>`).join('');
+  return `出售<strong style="color:#4fc3f7">${r.data.grade||'B'}级</strong>帽子 x${r.data.quantity}<br><span style="font-size:10px;color:#8899aa">库存: ${gpStr}</span><br><span style="font-size:10px">时价: ${priceStr}</span>`;
+}
+
+function renderTeacher(data){
+  const pid=data.me?data.me.player_id:'';
+
+  // Schedule info
+  const sched=data.schedule;
+  const tsEl=document.getElementById('teacherSchedule');
+  if(sched&&data.phase==='playing'){
+    const allowedStr=sched.allowed&&sched.allowed.length?sched.allowed.map(a=>{
+      const m={buy:'🛒采购',produce:'🔧生产',sell:'📤销售',loan:'🏦贷款',repay:'💳还款',shop:'🏪消费',plan:'📋计划'};
+      return m[a]||a;
+    }).join(' '):'😴休息';
+    tsEl.innerHTML=`📅 ${sched.weekday} · ${sched.action}<br><span style="font-size:11px;color:#8899aa">${sched.desc||''} | 允许: ${allowedStr}</span>`;
+  } else if(data.phase==='ended'){
+    tsEl.innerHTML='🎉 游戏已结束';
+  } else {
+    tsEl.innerHTML='⏳ 等待开始游戏';
+  }
+
+  // Pending requests
+  const reqs=data.pending_requests||[];
+  document.getElementById('pendingCount').textContent=reqs.length;
+  if(reqs.length){
+    document.getElementById('pendingRequests').innerHTML=reqs.map(r=>{
+      const detail=r.type==='buy'?`购买A4纸 x${r.data.quantity}`:
+        r.type==='sell'?renderSellDetail(r):
+        r.type==='shop'?'购物':'未知';
+      return `<div class="req-item"><span>${r.player_name}: ${detail}</span><div class="req-actions"><button style="background:#66bb6a;color:#fff" onclick="approveReq('${r.id}')">✓ 批准</button><button style="background:#ef5350;color:#fff" onclick="rejectReq('${r.id}')">✗ 拒绝</button></div></div>`;
+    }).join('');
+  } else {
+    document.getElementById('pendingRequests').innerHTML='<div style="color:#556677;font-size:12px">✅ 暂无待审批请求</div>';
+  }
+
+  // Pending grading
+  const pg=data.pending_grading||[];
+  if(pg.length){
+    document.getElementById('pendingGrading').innerHTML=pg.map(p=>{
+      const grades='ABCD'.split('').map(g=>`<span class="grade-badge" style="background:${g==='A'?'#66bb6a':g==='B'?'#4fc3f7':g==='C'?'#ffb74d':'#ef5350'};color:#fff;cursor:pointer" onclick="gradeProd('${p.player_id}','${p.name}',${p.pending_products},'${g}')">${g}级</span>`).join(' ');
+      return `<div style="font-size:12px;padding:4px 0;display:flex;justify-content:space-between;align-items:center"><span>${p.name}: 待检验<strong>${p.pending_products}</strong>顶</span><span>${grades}</span></div>`;
+    }).join('');
+  } else {
+    document.getElementById('pendingGrading').innerHTML='<div style="color:#556677;font-size:12px">✅ 暂无待检验帽子</div>';
+  }
+
+  // Scenario cards (save select values before re-render)
+  const cards=data.scenario_cards||[];
+  const students=data.all_students||[];
+  const _savedScenarioValues={};
+  if(cards.length&&students.length){
+    cards.forEach(c=>{
+      const el=document.getElementById('scTarget'+c.id);
+      if(el) _savedScenarioValues[c.id]=el.value;
+    });
+    document.getElementById('scenarioCards').innerHTML=cards.map(c=>{
+      const t=c.type==='reward'?'reward':'penalty';
+      const savedVal=_savedScenarioValues[c.id]||(students[0]?students[0].player_id:'');
+      const opts=students.map(s=>`<option value="${s.player_id}"${s.player_id===savedVal?' selected':''}>${s.name}</option>`).join('');
+      const sel=`<select id="scTarget${c.id}" style="font-size:11px;padding:2px;width:80px">${opts}</select>`;
+      return `<div class="scenario-item"><span><span class="sc-type ${t}">${c.type==='reward'?'奖':'罚'}</span> ${c.name} (${c.amount>0?'+':''}${c.amount})</span><span>${sel}<button style="background:#4fc3f7;color:#0a0e17;border:none;border-radius:4px;padding:2px 6px;cursor:pointer;font-size:11px;margin-left:4px" onclick="issueCard('${c.id}','${c.name}')">发放</button></span></div>`;
+    }).join('');
+  } else {
+    document.getElementById('scenarioCards').innerHTML='<div style="color:#556677;font-size:12px">需先开始游戏并有学生加入</div>';
+  }
+
+  // Scenario log
+  const slog=data.scenario_log||[];
+  document.getElementById('scenarioLog').innerHTML=slog.length?slog.slice().reverse().map(s=>`<div>Day${s.day} ${s.target}: 「${s.card.name}」${s.card.amount>0?'+':''}${s.card.amount}💰</div>`).join(''):'<div style="color:#556677">暂无记录</div>';
+
+  // Leaderboard
+  renderLeaderboard(data.leaderboard,pid,'teacherLeaderboard');
+
+  // Student list (store for modal use)
+  window._allStudents=data.players.filter(p=>!p.is_teacher)||[];
+  const slEl=document.getElementById('studentList');
+  slEl.innerHTML=window._allStudents.map(p=>{
+    const gp=p.graded_products||{};
+    const gpStr=Object.entries(gp).filter(([,c])=>c>0).map(([g,c])=>`<span class="grade-badge" style="background:#4fc3f7;color:#fff;font-size:9px;padding:0 4px">${g}${c}</span>`).join('');
+    return `<div style="font-size:12px;padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;justify-content:space-between;align-items:center">
+      <span>${p.name}</span>
+      <span style="color:#ffd54f">${p.cash.toFixed(0)}💰 ${gpStr}</span>
+    </div>`;
+  }).join('')||'<div style="color:#556677;font-size:12px">暂无学生</div>';
+
+  // Market
+  renderMarket(data.market,'teacherMarket');
+
+  // Teacher shop
+  const shop=data.honesty_shop||[];
+  if(shop.length){
+    document.getElementById('teacherShop').innerHTML=shop.map(s=>`${s.emoji} ${s.name} ${s.price}💰`).join(' &nbsp;|&nbsp; ');
+  }
+}
+
+// === STUDENT VIEW ===
+function renderStudent(data){
+  const me=data.me;
+  if(!me)return;
+  window._lastMe=me;
+  if(data.honesty_shop) window._lastShop=data.honesty_shop.map(s=>({id:s.id,n:s.name,p:s.price,e:s.emoji}));
+
+  document.getElementById('myName').textContent=me.name;
+  document.getElementById('myCash').textContent=me.cash.toFixed(0);
+  document.getElementById('myRaw').textContent=me.raw_materials;
+  document.getElementById('myProd').textContent=me.products;
+  document.getElementById('myPending').textContent=me.pending_products;
+  document.getElementById('myDebt').textContent=me.liabilities.toFixed(0);
+  document.getElementById('myRep').textContent=me.reputation;
+
+  // Graded product badges
+  const gp=me.graded_products||{};
+  const gradeColors={A:'#66bb6a',B:'#4fc3f7',C:'#ffb74d',D:'#ef5350'};
+  const gbEl=document.getElementById('gradeBadges');
+  const totalGraded=Object.values(gp).reduce((a,b)=>a+b,0);
+  if(totalGraded>0){
+    gbEl.innerHTML=Object.entries(gp).filter(([,c])=>c>0).map(([g,c])=>`<span class="grade-badge" style="background:${gradeColors[g]};color:#fff">${g}级×${c}</span>`).join('');
+  } else {
+    gbEl.innerHTML='<span style="color:#556677">暂无已评级帽子</span>';
+  }
+
+  // Schedule
+  const sched=data.schedule;
+  if(sched&&data.phase==='playing'){
+    document.getElementById('weekdayName').textContent=sched.weekday+' · '+sched.action;
+    document.getElementById('dayAction').textContent=sched.desc||'';
+  } else if(data.phase==='playing'){
+    document.getElementById('weekdayName').textContent='📅 游戏已开始';
+    document.getElementById('dayAction').textContent='等待老师推进到第1天...';
+  } else if(data.phase==='ended'){
+    document.getElementById('weekdayName').textContent='🎉 游戏已结束';
+    document.getElementById('dayAction').textContent='查看排行榜和经营日志';
+  } else {
+    document.getElementById('weekdayName').textContent='—';
+    document.getElementById('dayAction').textContent='游戏未开始';
+  }
+
+  // Actions (based on allowed_actions for day)
+  const allowed=data.allowed_actions||[];
+  const actionMap={
+    buy:'<button class="action-btn" onclick="showBuy()">🛒 购买A4纸</button>',
+    produce:'<button class="action-btn" onclick="showProduce()">🔧 做帽子</button>',
+    sell:'<button class="action-btn" onclick="showSell()">📤 出售帽子</button>',
+    loan:'<button class="action-btn" onclick="showLoan()">🏦 贷款</button>',
+    repay:'<button class="action-btn" onclick="doRepay()">💳 还款</button>',
+    shop:'<button class="action-btn" onclick="showShop()">🏪 诚信商店</button>',
+    plan:'<div style="font-size:12px;color:#8899aa;padding:4px">📋 制定下周经营计划...</div>',
+  };
+  let ah='';
+  if(data.phase==='playing'&&allowed.length){
+    allowed.forEach(a=>{if(actionMap[a])ah+=actionMap[a]});
+    if(!ah)ah='<div style="font-size:12px;color:#8899aa;padding:4px">今天休息，无经营活动</div>';
+  } else if(data.phase==='playing'&&data.day===0){
+    ah='<div style="font-size:12px;color:#ffd54f;padding:4px">⏳ 游戏已开始，等待老师推进到第1天...</div>';
+  } else if(data.phase==='lobby'){
+    ah='<div style="font-size:12px;color:#8899aa;padding:4px">等待老师开始游戏...</div>';
+  } else if(data.phase==='ended'){
+    ah='<div style="font-size:12px;color:#ffd54f;padding:4px">🎉 游戏已结束</div>';
+  }
+  document.getElementById('studentActions').innerHTML=ah;
+
+  // My requests with status
+  const myReqs=data.my_pending_requests||[];
+  document.getElementById('myRequests').innerHTML=myReqs.length?myReqs.map(r=>{
+    const stIcon=r.status==='pending'?'⏳':r.status==='approved'?'✅':'❌';
+    const stCls=r.status==='pending'?'':r.status==='approved'?'ev-amt pos':'ev-amt neg';
+    let detail='';
+    if(r.type==='buy') detail=`购买A4纸 x${r.data.quantity}`;
+    else if(r.type==='sell') detail=`出售${r.data.grade||'B'}级帽子 x${r.data.quantity}`;
+    else if(r.type==='shop') detail='购物';
+    const stLabel=r.status==='pending'?'等待审批':r.status==='approved'?'已批准':'已拒绝';
+    return `<div style="font-size:12px;padding:3px 0" class="${stCls}">${stIcon} ${detail} <span style="color:#8899aa">(${stLabel})</span></div>`;
+  }).join(''):'<div style="color:#556677;font-size:12px">暂无请求记录</div>';
+
+  // Leaderboard
+  renderLeaderboard(data.leaderboard,me.player_id,'studentLeaderboard');
+
+  // Market
+  renderMarket(data.market,'studentMarket');
+
+  // Log
+  const log=data.my_log||[];
+  document.getElementById('studentLog').innerHTML=log.length?log.slice().reverse().map(e=>{
+    const amt=e.amount?`<span class="ev-amt ${e.amount>0?'pos':'neg'}">${e.amount>0?'+':''}${e.amount.toFixed(0)}</span> `:'';
+    return `<div class="ev"><span class="ev-d">Day${e.day}</span>${amt}${e.description}</div>`;
+  }).join(''):'<div style="color:#556677">暂无记录</div>';
+}
+
+// === TEACHER ACTIONS ===
+async function startGame(){
+  const r=await api('/api/start_game',{room_code:roomCode,player_id:playerId});
+  if(r.success)toast(r.message,'ok');else toast(r.message,'err')
+}
+async function nextDay(){
+  const r=await api('/api/next_day',{room_code:roomCode,player_id:playerId});
+  if(r.success){
+    toast(r.message,'ok');
+    if(r.data&&r.data.events){
+      const el=document.getElementById('teacherLog');
+      r.data.events.slice(-8).reverse().forEach(e=>{
+        const d=document.createElement('div');d.className='ev';d.innerHTML=`<span class="ev-d">⬆</span> ${e}`;
+        el.prepend(d);
+      });
+    }
+  } else toast(r.message,'err')
+}
+async function approveReq(id){const r=await api('/api/approve_request',{room_code:roomCode,player_id:playerId,request_id:id});toast(r.message,r.success?'ok':'err')}
+async function rejectReq(id){const r=await api('/api/reject_request',{room_code:roomCode,player_id:playerId,request_id:id});toast(r.message,r.success?'ok':'err')}
+async function gradeProd(pid,pname,qty,grade){
+  const inputQty=parseInt(document.getElementById('gradeQty').value);
+  const useQty=inputQty>0&&inputQty<=qty?inputQty:qty;
+  const r=await api('/api/grade_products',{room_code:roomCode,player_id:playerId,target_player_id:pid,quantity:useQty,grade});
+  toast(r.message,r.success?'ok':'err')
+}
+async function issueCard(cardId,cardName){
+  const sel=document.getElementById('scTarget'+cardId);
+  if(!sel){toast('请先开始游戏','err');return}
+  const target=sel.value;
+  const r=await api('/api/issue_scenario',{room_code:roomCode,player_id:playerId,card_id:cardId,target_player_id:target});
+  toast(r.message,r.success?'ok':'err')
+}
+
+function showCollect(){
+  const students=window._allStudents||[];
+  const opts=students.map(s=>`<option value="${s.player_id}">${s.name} (💰${s.cash.toFixed(0)})</option>`).join('');
+  showModal(`
+    <h3>📥 收取金币</h3>
+    <label>选择学生</label><select id="mTarget">${opts}</select>
+    <label>金额</label><input id="mAmount" type="number" min="1" value="100">
+    <label>原因（可选）</label><input id="mReason" placeholder="如：材料费...">
+    <div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button><button class="btn-confirm" onclick="doCollect()">收取</button></div>
+  `);
+}
+
+async function doCollect(){
+  const t=document.getElementById('mTarget').value,a=parseFloat(document.getElementById('mAmount').value),r=document.getElementById('mReason').value;
+  hideModal();
+  const res=await api('/api/teacher_collect',{room_code:roomCode,player_id:playerId,target_player_id:t,amount:a,reason:r});
+  toast(res.message,res.success?'ok':'err')
+}
+
+function showGive(){
+  const students=window._allStudents||[];
+  const opts=students.map(s=>`<option value="${s.player_id}">${s.name} (💰${s.cash.toFixed(0)})</option>`).join('');
+  showModal(`
+    <h3>📤 发放金币</h3>
+    <label>选择学生</label><select id="mTarget">${opts}</select>
+    <label>金额</label><input id="mAmount" type="number" min="1" value="100">
+    <label>原因（可选）</label><input id="mReason" placeholder="如：奖励...">
+    <div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button><button class="btn-confirm" onclick="doGive()">发放</button></div>
+  `);
+}
+
+async function doGive(){
+  const t=document.getElementById('mTarget').value,a=parseFloat(document.getElementById('mAmount').value),r=document.getElementById('mReason').value;
+  hideModal();
+  const res=await api('/api/teacher_give',{room_code:roomCode,player_id:playerId,target_player_id:t,amount:a,reason:r});
+  toast(res.message,res.success?'ok':'err')
+}
+
+function showModal(html){
+  const o=document.getElementById('modalOverlay');
+  document.getElementById('modalContent').innerHTML=html;
+  o.classList.add('show');
+  o.addEventListener('click',e=>{if(e.target===e.currentTarget)hideModal()},{once:true})
+}
+
+// === STUDENT ACTIONS ===
+function showBuy(){showModal(`<h3>🛒 购买A4纸</h3><p style="font-size:12px;color:#8899aa">提交后需老师审批</p><label>数量</label><input id="mQty" type="number" min="1" value="10"><div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button><button class="btn-confirm" onclick="submitBuy()">提交请求</button></div>`)}
+async function submitBuy(){
+  const q=parseInt(document.getElementById('mQty').value);hideModal();
+  const r=await api('/api/buy_request',{room_code:roomCode,player_id:playerId,quantity:q});
+  toast(r.message,r.success?'ok':'err')
+}
+
+function showProduce(){showModal(`<h3>🔧 制作帽子</h3><p style="font-size:12px;color:#8899aa">消耗A4纸制作帽子，完成后需找老师检验评级</p><label>数量</label><input id="mQty" type="number" min="1" value="5"><div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button><button class="btn-confirm" onclick="submitProduce()">制作</button></div>`)}
+async function submitProduce(){
+  const q=parseInt(document.getElementById('mQty').value);hideModal();
+  const r=await api('/api/produce',{room_code:roomCode,player_id:playerId,quantity:q});
+  toast(r.message,r.success?'ok':'err')
+}
+
+function showSell(){
+  const me=window._lastMe||{graded_products:{A:0,B:0,C:0,D:0}};
+  const gp=me.graded_products||{};
+  const gs={A:'优秀 ×'+gp.A,B:'良好 ×'+gp.B,C:'合格 ×'+gp.C,D:'待改进 ×'+gp.D};
+  showModal(`<h3>📤 出售帽子</h3><p style="font-size:12px;color:#8899aa">提交后需老师审批定价</p>
+    <label>选择等级</label><select id="mGrade">${
+      'ABCD'.split('').map(g=>`<option value="${g}">${g}级 - ${gs[g]}</option>`).join('')
+    }</select>
+    <label>零售商</label><select id="mRetailer"><option value="RT1">精品店 (价最高)</option><option value="RT2">标准店 (适中)</option><option value="RT3">批发商 (量大价低)</option></select>
+    <label>数量</label><input id="mQty" type="number" min="1" value="1">
+    <div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button><button class="btn-confirm" onclick="submitSell()">提交请求</button></div>`)}
+async function submitSell(){
+  const q=parseInt(document.getElementById('mQty').value),rt=document.getElementById('mRetailer').value,gr=document.getElementById('mGrade').value;hideModal();
+  const r=await api('/api/sell_request',{room_code:roomCode,player_id:playerId,quantity:q,retailer_id:rt,grade:gr});
+  toast(r.message,r.success?'ok':'err')
+}
+
+function showLoan(){showModal(`<h3>🏦 申请贷款</h3><p style="font-size:12px;color:#8899aa">日利率0.5% · 10天周期 · 最多贷现金×3</p><label>金额</label><input id="mQty" type="number" min="1" value="5000"><div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button><button class="btn-confirm" onclick="submitLoan()">申请</button></div>`)}
+async function submitLoan(){
+  const a=parseFloat(document.getElementById('mQty').value);hideModal();
+  const r=await api('/api/loan',{room_code:roomCode,player_id:playerId,amount:a});
+  toast(r.message,r.success?'ok':'err')
+}
+
+async function doRepay(){const r=await api('/api/repay',{room_code:roomCode,player_id:playerId});toast(r.message,r.success?'ok':'err')}
+
+function showShop(){
+  const items=window._lastShop||[
+    {id:'S01',n:'可乐',p:5,e:'🥤'},{id:'S02',n:'冰淇淋',p:8,e:'🍦'},{id:'S03',n:'薯片',p:3,e:'🥨'},
+    {id:'S04',n:'棒棒糖',p:2,e:'🍭'},{id:'S05',n:'矿泉水',p:1,e:'💧'},{id:'S06',n:'巧克力',p:6,e:'🍫'},{id:'S07',n:'饼干',p:4,e:'🍪'}
+  ];
+  showModal(`<h3>🏪 诚信商店</h3><p style="font-size:12px;color:#8899aa">购买需老师审批</p><div class="shop-grid">${
+    items.map(i=>`<div class="shop-item" onclick="submitShop('${i.id}','${i.n}')"><div class="si-emoji">${i.e}</div><div class="si-name">${i.n}</div><div class="si-price">${i.p}💰</div></div>`).join('')
+  }</div><div class="btn-row"><button class="btn-cancel" onclick="hideModal()">取消</button></div>`)}
+async function submitShop(id,nm){hideModal();const r=await api('/api/shop_request',{room_code:roomCode,player_id:playerId,item_id:id});toast(r.message,r.success?'ok':'err')}
+
+// Init player name
+document.getElementById('playerName').value=selectedRole==='teacher'?'王老师':'学生';
+
+// === Back to Lobby ===
+function backToLobby(){
+  if(pollTimer){clearInterval(pollTimer);pollTimer=null}
+  document.getElementById('gameScreen').classList.remove('show');
+  document.getElementById('loginScreen').style.display='flex';
+}
+
+// === History ===
+async function showHistory(){
+  const saved=sessionStorage.getItem(STORAGE_KEY);
+  if(!saved){toast('请先登录后再查看游戏记录','err');return}
+  const creds=JSON.parse(saved);
+  const el=document.getElementById('historySection');
+  el.classList.toggle('hidden');
+  if(el.classList.contains('hidden'))return;
+  const r=await api('/api/my_games',{player_id:creds.player_id});
+  if(!r.success||!r.data.length){
+    el.innerHTML='<div style="color:#556677;font-size:12px;padding:8px;text-align:center">暂无游戏记录</div>';
+    return;
+  }
+  el.innerHTML=r.data.map(g=>`<div style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px;display:flex;justify-content:space-between">
+    <span>🏠 ${g.room_code} ${g.player_name}${g.is_teacher?' 👨‍🏫':''}</span>
+    <span style="color:#8899aa">${g.phase==='ended'?'✅ 已结束':g.phase==='playing'?`📅 进行中(Day${g.day})`:'⏳ 等待中'} ${g.player_cash.toFixed(0)}💰</span>
+  </div>`).join('');
+}
+
+// === First Week Tutorial ===
+const FIRST_WEEK_TIPS = {
+  1: {title:"📅 周一 · 采购日",desc:"今天可以购买原材料A4纸！\n\n操作步骤：\n① 点击「购买A4纸」按钮\n② 输入需要购买的数量\n③ 提交请求，等待老师审批\n\n💡 提示：A4纸是制作帽子的唯一原料，建议多备一些"},
+  2: {title:"📅 周二 · 生产日",desc:"今天可以用A4纸制作帽子！\n\n操作步骤：\n① 点击「做帽子」按钮\n② 输入要制作的数量\n③ 制作完成后帽子进入「待检验」状态\n④ 找老师检验评级\n\n💡 提示：帽子质量越高（A级），售价越高"},
+  3: {title:"📅 周三 · 销售日",desc:"今天可以出售帽子！\n\n操作步骤：\n① 点击「出售帽子」按钮\n② 选择要卖的等级（需先找老师检验评级）\n③ 选择零售商\n④ 提交请求，等待老师审批定价\n\n💡 提示：不同零售商出价不同，精品店价格最高"},
+  4: {title:"📅 周四 · 收款/贷款日",desc:"今天可以申请贷款或偿还贷款！\n\n操作步骤：\n① 点击「贷款」输入金额提交\n② 点击「还款」偿还到期贷款\n\n💡 提示：日利率0.5%，10天周期，最多贷现金×3倍"},
+  5: {title:"📅 周五 · 计划日",desc:"今天制定下周经营计划！\n\n思考以下问题：\n① 上周赚了多少钱？\n② 下周需要多少A4纸？\n③ 计划生产多少帽子？\n④ 需要贷款吗？\n\n💡 提示：提前规划能帮你赚更多钱！"},
+  6: {title:"📅 周六 · 消费日",desc:"诚信商店今天营业！\n\n操作步骤：\n① 点击「诚信商店」按钮\n② 选择喜欢的商品\n③ 提交请求，等待老师审批\n\n🍦 商品：可乐、冰淇淋、薯片、棒棒糖、矿泉水、巧克力、饼干"},
+  7: {title:"📅 周日 · 休息日",desc:"今天是休息日，没有经营活动。\n\n可以利用今天的时间：\n① 查看市场信息，了解价格走势\n② 查看排行榜，了解自己的排名\n③ 查看经营日志，回顾经营情况\n\n😊 劳逸结合，下周继续努力！"},
+};
+
+let _tutorialShown = new Set();
+
+function showDayTutorial(day, sched){
+  if(!sched||day>7) return;
+  if(_tutorialShown.has(day)) return;
+  _tutorialShown.add(day);
+  const tip=FIRST_WEEK_TIPS[day];
+  if(!tip) return;
+  setTimeout(()=>{
+    showModal(`<h3>${tip.title}</h3><pre style="font-size:13px;color:#b0bec5;white-space:pre-wrap;line-height:1.6;margin:8px 0;font-family:inherit">${tip.desc}</pre><div class="btn-row"><button class="btn-confirm" onclick="hideModal()">我知道了</button></div>`);
+  }, 500);
+}
+
+// Hook into render to show tutorial
+const _origRenderStudent=renderStudent;
+renderStudent=function(data){
+  _origRenderStudent(data);
+  if(data.phase==='playing'&&data.day>=1&&data.day<=7){
+    showDayTutorial(data.day, data.schedule);
+  }
+};
+</script>
+</body>
+</html>

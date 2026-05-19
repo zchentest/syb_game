@@ -1,0 +1,1 @@
+from syb_game.main import main

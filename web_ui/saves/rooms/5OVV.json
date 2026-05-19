@@ -1,0 +1,47 @@
+{
+  "room_code": "5OVV",
+  "day": 0,
+  "phase": "lobby",
+  "teacher_id": "hr4b3wnd",
+  "created_at": 1779161041.4801133,
+  "last_event": "",
+  "players": {
+    "hr4b3wnd": {
+      "player_id": "hr4b3wnd",
+      "name": "王老师",
+      "is_teacher": true,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    }
+  },
+  "pending_requests": [],
+  "scenario_log": [],
+  "market": {
+    "material_prices": {
+      "RC": 21.42
+    },
+    "retailer_product_prices": {
+      "CP": {
+        "RT1": 49.92,
+        "RT2": 37.07,
+        "RT3": 24.94
+      }
+    },
+    "demand_trends": {
+      "CP": 0
+    }
+  }
+}

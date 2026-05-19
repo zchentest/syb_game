@@ -1,0 +1,952 @@
+{
+  "room_code": "0QHB",
+  "day": 8,
+  "phase": "playing",
+  "teacher_id": "3vdfa030",
+  "created_at": 1779163360.3673682,
+  "last_event": "第8天 (周一)",
+  "players": {
+    "3vdfa030": {
+      "player_id": "3vdfa030",
+      "name": "王老师",
+      "is_teacher": true,
+      "cash": 10200.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    },
+    "ml64w04n": {
+      "player_id": "ml64w04n",
+      "name": "123",
+      "is_teacher": false,
+      "cash": 7314.3,
+      "reputation": 7,
+      "raw_materials": 10,
+      "products": 0,
+      "product_avg_cost": 20.0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [
+        "S01"
+      ],
+      "loans": [],
+      "log": [
+        {
+          "day": 0,
+          "type": "scenario",
+          "description": "老师发放情景卡「诚信模范」：自觉遵守规则，获得诚信奖励（奖励10金币）",
+          "amount": 10
+        },
+        {
+          "day": 0,
+          "type": "scenario",
+          "description": "老师发放情景卡「优秀工匠」：帽子做工精美，获得额外奖金（奖励10金币）",
+          "amount": 10
+        },
+        {
+          "day": 1,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "buy",
+          "description": "购买 A4纸x10，单价18.80，总价188.00",
+          "amount": -188.0
+        },
+        {
+          "day": 2,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "produce",
+          "description": "生产帽子x10，等待老师检验评级",
+          "amount": 0
+        },
+        {
+          "day": 2,
+          "type": "grade",
+          "description": "老师检验帽子x10，评级：优秀（A级）",
+          "amount": 0
+        },
+        {
+          "day": 3,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "sell",
+          "description": "出售A级帽子x10，收入554.10，利润354.10",
+          "amount": 554.0999999999999
+        },
+        {
+          "day": 4,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「优秀工匠」：帽子做工精美，获得额外奖金（奖励10金币）",
+          "amount": 10
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「创意之星」：设计创意独特，获得创新奖励（奖励15金币）",
+          "amount": 15
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「团队协作」：帮助同桌解决问题，获得互助奖（奖励8金币）",
+          "amount": 8
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「诚信模范」：自觉遵守规则，获得诚信奖励（奖励10金币）",
+          "amount": 10
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「材料浪费」：制作过程中浪费材料，扣除成本（惩罚-8金币）",
+          "amount": -8
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「课堂违纪」：违反课堂纪律，罚款处理（惩罚-10金币）",
+          "amount": -10
+        },
+        {
+          "day": 4,
+          "type": "scenario",
+          "description": "老师发放情景卡「操作失误」：操作流程错误导致损失，扣款（惩罚-6金币）",
+          "amount": -6
+        },
+        {
+          "day": 4,
+          "type": "give",
+          "description": "老师发放100.00金币（测试）",
+          "amount": 100.0
+        },
+        {
+          "day": 4,
+          "type": "collect",
+          "description": "老师收取200.00金币（ces）",
+          "amount": -200.0
+        },
+        {
+          "day": 5,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 6,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "shop",
+          "description": "从诚信商店购买 🥤可乐，花费5金币",
+          "amount": -5
+        },
+        {
+          "day": 7,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 8,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "buy",
+          "description": "购买 A4纸x10，单价18.58，总价185.80",
+          "amount": -185.79999999999998
+        }
+      ]
+    },
+    "at33tkq8": {
+      "player_id": "at33tkq8",
+      "name": "234",
+      "is_teacher": false,
+      "cash": 13058.2,
+      "reputation": 116,
+      "raw_materials": 0,
+      "products": 1,
+      "product_avg_cost": 20.0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": [
+        {
+          "day": 0,
+          "type": "scenario",
+          "description": "老师发放情景卡「创意之星」：设计创意独特，获得创新奖励（奖励15金币）",
+          "amount": 15
+        },
+        {
+          "day": 1,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "buy",
+          "description": "购买 A4纸x101，单价18.80，总价1898.80",
+          "amount": -1898.8000000000002
+        },
+        {
+          "day": 2,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "produce",
+          "description": "生产帽子x101，等待老师检验评级",
+          "amount": 0
+        },
+        {
+          "day": 2,
+          "type": "grade",
+          "description": "老师检验帽子x100，评级：优秀（A级）",
+          "amount": 0
+        },
+        {
+          "day": 2,
+          "type": "grade",
+          "description": "老师检验帽子x1，评级：良好（B级）",
+          "amount": 0
+        },
+        {
+          "day": 3,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "sell",
+          "description": "出售A级帽子x100，收入7842.00，利润5842.00",
+          "amount": 7842.0
+        },
+        {
+          "day": 4,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 4,
+          "type": "collect",
+          "description": "老师收取100.00金币（测试）",
+          "amount": -100.0
+        },
+        {
+          "day": 5,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 6,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 7,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 8,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        }
+      ]
+    },
+    "k2cg22yu": {
+      "player_id": "k2cg22yu",
+      "name": "345",
+      "is_teacher": false,
+      "cash": 12863.599999999999,
+      "reputation": 116,
+      "raw_materials": 3,
+      "products": 0,
+      "product_avg_cost": 20.0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": [
+        {
+          "day": 0,
+          "type": "scenario",
+          "description": "老师发放情景卡「团队协作」：帮助同桌解决问题，获得互助奖（奖励8金币）",
+          "amount": 8
+        },
+        {
+          "day": 1,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "buy",
+          "description": "购买 A4纸x103，单价18.80，总价1936.40",
+          "amount": -1936.4
+        },
+        {
+          "day": 2,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "produce",
+          "description": "生产帽子x100，等待老师检验评级",
+          "amount": 0
+        },
+        {
+          "day": 2,
+          "type": "grade",
+          "description": "老师检验帽子x100，评级：优秀（A级）",
+          "amount": 0
+        },
+        {
+          "day": 3,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "sell",
+          "description": "出售A级帽子x100，收入7842.00，利润5842.00",
+          "amount": 7842.0
+        },
+        {
+          "day": 4,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "loan",
+          "description": "获得贷款5000.00，10天周期",
+          "amount": 5000.0
+        },
+        {
+          "day": 0,
+          "type": "repay",
+          "description": "偿还贷款本息5250.00",
+          "amount": -5250.0
+        },
+        {
+          "day": 5,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 6,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 7,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 8,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        }
+      ]
+    },
+    "8wgm7s4d": {
+      "player_id": "8wgm7s4d",
+      "name": "456",
+      "is_teacher": false,
+      "cash": 8984.2,
+      "reputation": 58,
+      "raw_materials": 51,
+      "products": 0,
+      "product_avg_cost": 20.0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": [
+        {
+          "day": 0,
+          "type": "scenario",
+          "description": "老师发放情景卡「全勤奖」：本周全勤参与，获得全勤奖励（奖励12金币）",
+          "amount": 12
+        },
+        {
+          "day": 1,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "buy",
+          "description": "购买 A4纸x101，单价18.80，总价1898.80",
+          "amount": -1898.8000000000002
+        },
+        {
+          "day": 2,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "produce",
+          "description": "生产帽子x50，等待老师检验评级",
+          "amount": 0
+        },
+        {
+          "day": 2,
+          "type": "grade",
+          "description": "老师检验帽子x50，评级：优秀（A级）",
+          "amount": 0
+        },
+        {
+          "day": 3,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "sell",
+          "description": "出售A级帽子x50，收入3921.00，利润2921.00",
+          "amount": 3921.0
+        },
+        {
+          "day": 4,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "loan",
+          "description": "获得贷款5000.00，10天周期",
+          "amount": 5000.0
+        },
+        {
+          "day": 0,
+          "type": "repay",
+          "description": "偿还贷款本息5250.00",
+          "amount": -5250.0
+        },
+        {
+          "day": 5,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 6,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 7,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 8,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        }
+      ]
+    },
+    "g3sz3goh": {
+      "player_id": "g3sz3goh",
+      "name": "123",
+      "is_teacher": false,
+      "cash": 6762.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 10,
+      "product_avg_cost": 20.0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 10,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": [
+        {
+          "day": 1,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "buy",
+          "description": "购买 A4纸x10，单价18.80，总价188.00",
+          "amount": -188.0
+        },
+        {
+          "day": 2,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "produce",
+          "description": "生产帽子x10，等待老师检验评级",
+          "amount": 0
+        },
+        {
+          "day": 2,
+          "type": "grade",
+          "description": "老师检验帽子x10，评级：优秀（A级）",
+          "amount": 0
+        },
+        {
+          "day": 3,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 4,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 0,
+          "type": "loan",
+          "description": "获得贷款5000.00，10天周期",
+          "amount": 5000.0
+        },
+        {
+          "day": 0,
+          "type": "repay",
+          "description": "偿还贷款本息5250.00",
+          "amount": -5250.0
+        },
+        {
+          "day": 5,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 6,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 7,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        },
+        {
+          "day": 8,
+          "type": "expense",
+          "description": "支付固定开销350金币",
+          "amount": -350
+        }
+      ]
+    }
+  },
+  "pending_requests": [
+    {
+      "id": "hrt01m",
+      "type": "buy",
+      "player_id": "ml64w04n",
+      "player_name": "123",
+      "data": {
+        "quantity": 10
+      },
+      "status": "approved"
+    },
+    {
+      "id": "0tx5g7",
+      "type": "buy",
+      "player_id": "at33tkq8",
+      "player_name": "234",
+      "data": {
+        "quantity": 101
+      },
+      "status": "approved"
+    },
+    {
+      "id": "3oux1o",
+      "type": "buy",
+      "player_id": "k2cg22yu",
+      "player_name": "345",
+      "data": {
+        "quantity": 103
+      },
+      "status": "approved"
+    },
+    {
+      "id": "8bcwlh",
+      "type": "buy",
+      "player_id": "8wgm7s4d",
+      "player_name": "456",
+      "data": {
+        "quantity": 101
+      },
+      "status": "approved"
+    },
+    {
+      "id": "yuje29",
+      "type": "buy",
+      "player_id": "g3sz3goh",
+      "player_name": "123",
+      "data": {
+        "quantity": 10
+      },
+      "status": "approved"
+    },
+    {
+      "id": "vxs2l0",
+      "type": "sell",
+      "player_id": "ml64w04n",
+      "player_name": "123",
+      "data": {
+        "quantity": 10,
+        "retailer_id": "RT2",
+        "grade": "A"
+      },
+      "status": "approved"
+    },
+    {
+      "id": "6z65ru",
+      "type": "sell",
+      "player_id": "at33tkq8",
+      "player_name": "234",
+      "data": {
+        "quantity": 100,
+        "retailer_id": "RT1",
+        "grade": "A"
+      },
+      "status": "approved"
+    },
+    {
+      "id": "dq4vdx",
+      "type": "sell",
+      "player_id": "k2cg22yu",
+      "player_name": "345",
+      "data": {
+        "quantity": 100,
+        "retailer_id": "RT1",
+        "grade": "A"
+      },
+      "status": "approved"
+    },
+    {
+      "id": "b035g1",
+      "type": "sell",
+      "player_id": "8wgm7s4d",
+      "player_name": "456",
+      "data": {
+        "quantity": 10,
+        "retailer_id": "RT2",
+        "grade": "A"
+      },
+      "status": "rejected"
+    },
+    {
+      "id": "0rk1zl",
+      "type": "sell",
+      "player_id": "8wgm7s4d",
+      "player_name": "456",
+      "data": {
+        "quantity": 50,
+        "retailer_id": "RT1",
+        "grade": "A"
+      },
+      "status": "approved"
+    },
+    {
+      "id": "womw7z",
+      "type": "shop",
+      "player_id": "ml64w04n",
+      "player_name": "123",
+      "data": {
+        "item_id": "S01"
+      },
+      "status": "approved"
+    },
+    {
+      "id": "oimxf6",
+      "type": "buy",
+      "player_id": "ml64w04n",
+      "player_name": "123",
+      "data": {
+        "quantity": 10
+      },
+      "status": "approved"
+    }
+  ],
+  "scenario_log": [
+    {
+      "day": 0,
+      "card": {
+        "id": "C02",
+        "name": "创意之星",
+        "type": "reward",
+        "amount": 15,
+        "desc": "设计创意独特，获得创新奖励"
+      },
+      "target": "234",
+      "target_id": "at33tkq8",
+      "note": "",
+      "time": 1779163448.7597997
+    },
+    {
+      "day": 0,
+      "card": {
+        "id": "C03",
+        "name": "团队协作",
+        "type": "reward",
+        "amount": 8,
+        "desc": "帮助同桌解决问题，获得互助奖"
+      },
+      "target": "345",
+      "target_id": "k2cg22yu",
+      "note": "",
+      "time": 1779163455.3339798
+    },
+    {
+      "day": 0,
+      "card": {
+        "id": "C04",
+        "name": "全勤奖",
+        "type": "reward",
+        "amount": 12,
+        "desc": "本周全勤参与，获得全勤奖励"
+      },
+      "target": "456",
+      "target_id": "8wgm7s4d",
+      "note": "",
+      "time": 1779163460.9273996
+    },
+    {
+      "day": 0,
+      "card": {
+        "id": "C05",
+        "name": "诚信模范",
+        "type": "reward",
+        "amount": 10,
+        "desc": "自觉遵守规则，获得诚信奖励"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779163469.6225588
+    },
+    {
+      "day": 0,
+      "card": {
+        "id": "C01",
+        "name": "优秀工匠",
+        "type": "reward",
+        "amount": 10,
+        "desc": "帽子做工精美，获得额外奖金"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779163474.383371
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C01",
+        "name": "优秀工匠",
+        "type": "reward",
+        "amount": 10,
+        "desc": "帽子做工精美，获得额外奖金"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779163996.5597394
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C02",
+        "name": "创意之星",
+        "type": "reward",
+        "amount": 15,
+        "desc": "设计创意独特，获得创新奖励"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779163998.743891
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C03",
+        "name": "团队协作",
+        "type": "reward",
+        "amount": 8,
+        "desc": "帮助同桌解决问题，获得互助奖"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779164000.271206
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C05",
+        "name": "诚信模范",
+        "type": "reward",
+        "amount": 10,
+        "desc": "自觉遵守规则，获得诚信奖励"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779164000.9030013
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C07",
+        "name": "材料浪费",
+        "type": "penalty",
+        "amount": -8,
+        "desc": "制作过程中浪费材料，扣除成本"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779164002.3050282
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C08",
+        "name": "课堂违纪",
+        "type": "penalty",
+        "amount": -10,
+        "desc": "违反课堂纪律，罚款处理"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779164002.8236163
+    },
+    {
+      "day": 4,
+      "card": {
+        "id": "C09",
+        "name": "操作失误",
+        "type": "penalty",
+        "amount": -6,
+        "desc": "操作流程错误导致损失，扣款"
+      },
+      "target": "123",
+      "target_id": "ml64w04n",
+      "note": "",
+      "time": 1779164003.5102928
+    }
+  ],
+  "market": {
+    "material_prices": {
+      "RC": 18.58
+    },
+    "retailer_product_prices": {
+      "CP": {
+        "RT1": 46.12,
+        "RT2": 37.21,
+        "RT3": 23.38
+      }
+    },
+    "demand_trends": {
+      "CP": 2
+    }
+  }
+}

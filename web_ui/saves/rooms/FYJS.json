@@ -1,0 +1,47 @@
+{
+  "room_code": "FYJS",
+  "day": 1,
+  "phase": "playing",
+  "teacher_id": "l7mnecow",
+  "created_at": 1779161081.066279,
+  "last_event": "第1天 (周一)",
+  "players": {
+    "l7mnecow": {
+      "player_id": "l7mnecow",
+      "name": "王老师",
+      "is_teacher": true,
+      "cash": 10000.0,
+      "reputation": 0,
+      "raw_materials": 0,
+      "products": 0,
+      "product_avg_cost": 0,
+      "pending_products": 0,
+      "graded_products": {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0
+      },
+      "shop_items": [],
+      "loans": [],
+      "log": []
+    }
+  },
+  "pending_requests": [],
+  "scenario_log": [],
+  "market": {
+    "material_prices": {
+      "RC": 19.11
+    },
+    "retailer_product_prices": {
+      "CP": {
+        "RT1": 48.12,
+        "RT2": 37.02,
+        "RT3": 22.3
+      }
+    },
+    "demand_trends": {
+      "CP": 0
+    }
+  }
+}
